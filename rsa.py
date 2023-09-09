@@ -6,12 +6,7 @@ import math
 
 class RSA:
     def __init__(self):
-        self.p = int
-        self.q = int
-        self.n = int
-        self.m = int
-        self.e = int
-        self.d = float
+        pass
 
     def egcd(self, a, b):
         if a == 0:
@@ -26,35 +21,39 @@ class RSA:
         return x%m
 
     def key_gen(self):
-        self.p = np.int64(np.random.choice(primes, replace=False))
-        self.q = np.int64(np.random.choice(primes, replace=False))
-        self.n = np.int64(np.multiply(self.p,self.q))
-        self.m = np.int64((self.p-1) * (self.q-1))
+        #self.p = np.random.choice(primes, replace=False)
+        #self.q = np.random.choice(primes, replace=False)
+        self.p=3
+        self.q = 11
+        self.n = self.p*self.q
+        self.m = (self.p-1) * (self.q-1)
 
         random_e = np.random.choice(primes, replace=False)
         coprime = False
         while not coprime:
             if np.gcd(random_e, self.m) == 1 and random_e < self.m:
-                self.e = np.int64(random_e)
+                self.e = random_e
                 coprime=True
             else:
                 random_e = np.random.choice(primes, replace=False)
                 coprime=False
 
+        self.e=7
+        self.d=3
         
-        self.d = self.modinv(self.e, self.m)
+        #self.d = self.modinv(self.e, self.m)
         
 
     def encrypt(self, let_to_num):
         print('Insert the message you want to encrypt: ')
         word = input()
         x = list(word)
-        print(x)
+        print('the word you are trying to encrypt is:', x)
         x_num = []
         for i in x:
             x_num.append(let_to_num[i])
 
-        print(x_num)
+        print('Your word converting to numbers is:', x_num)
         enc_list = []
         for j in x_num:
             enc_list.append(pow(j, self.e) % self.n)
@@ -67,13 +66,14 @@ class RSA:
         for i in message:
             dec_list.append(pow(i, self.d) % self.n)
         
+        print("The decrypted message in number format is:", dec_list)
         message_letters = []
-        val_list = list(num_to_let.values())
         for j in dec_list:
-            message_letters.append(val_list.index(j))
-
-        breakpoint()
+            for key, value in num_to_let.items():
+                if j == value:
+                    message_letters.append(key)
         decrypted_message = "".join([str(i) for i in message_letters])
+        print("The decrypted message is", decrypted_message)
         return decrypted_message
 
 
