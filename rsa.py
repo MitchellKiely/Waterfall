@@ -1,6 +1,6 @@
 from string import ascii_lowercase
 from primes import primes
-import random
+from lnd import let_num_dict
 import numpy as np
 import math
 
@@ -23,8 +23,8 @@ class RSA:
     def key_gen(self):
         #self.p = np.random.choice(primes, replace=False)
         #self.q = np.random.choice(primes, replace=False)
-        self.p=3
-        self.q = 11
+        self.p=11
+        self.q = 13
         self.n = self.p*self.q
         self.m = (self.p-1) * (self.q-1)
 
@@ -38,10 +38,10 @@ class RSA:
                 random_e = np.random.choice(primes, replace=False)
                 coprime=False
 
-        self.e=7
-        self.d=3
-        
-        #self.d = self.modinv(self.e, self.m)
+        self.e=77        
+        self.d = self.modinv(self.e, self.m)
+        print(self.e)
+        print(self.d)
         
 
     def encrypt(self, let_to_num):
@@ -82,7 +82,7 @@ class RSA:
 
 def main():
     r = RSA()
-    dict_let_num = r.build_dict()
+    dict_let_num = let_num_dict
     r.key_gen()
     message = r.encrypt(dict_let_num)
     print(r.decrypt(message, dict_let_num))
