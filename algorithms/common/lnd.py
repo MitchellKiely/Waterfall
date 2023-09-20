@@ -16,6 +16,7 @@ let_num_dict = {
 
 #Everything else I forgot
 '   ':94, #tab 
-'|':95
+'|':95,
+'\n':96
 
 }
