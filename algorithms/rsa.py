@@ -39,33 +39,53 @@ class RSA:
             raise Exception('No modular inverse')
         return x%m
         
-    def encrypt(self, message):
-        
-        x = list(message)
-        #print('The word you are trying to encrypt is:', x)
-        x_num = []
-        for i in x:
-            x_num.append(let_num_dict[i])
+    def encrypt(self, message, layer, e, n):
+        if e or n == None:
+            e=self.e
+            n=self.n
 
-        #print('Your word converting to numbers is:', x_num)
-        enc_list = []
-        for j in x_num:
-            enc_list.append(pow(j, self.e) % self.n)
-        #print('Your encrypted message is:', enc_list)
-        return enc_list
+        if layer == 1:
+            x = list(message)
+            #print('The word you are trying to encrypt is:', x)
+            x_num = []
+            for i in x:
+                x_num.append(let_num_dict[i])
+
+            #print('Your word converting to numbers is:', x_num)
+            enc_list = []
+            for j in x_num:
+                enc_list.append(pow(j, e) % n)
+            #print('Your encrypted message is:', enc_list)
+            return enc_list
+        else:
+            #print('Your word converting to numbers is:', x_num)
+            enc_list = []
+            for j in message:
+                enc_list.append(pow(j, e) % n)
+            return enc_list
 
 
-    def decrypt(self, message):
-        dec_list = []
-        for i in message:
-            dec_list.append(pow(i, self.d) % self.n)
-        
-        #print("The decrypted message in number format is:", dec_list)
-        message_letters = []
-        for j in dec_list:
-            for key, value in let_num_dict.items():
-                if j == value:
-                    message_letters.append(key)
-        decrypted_message = "".join([str(i) for i in message_letters])
-        #print("The decrypted message is: ", decrypted_message)
-        return decrypted_message
+
+    def decrypt(self, message, layer, d, n):
+        if d or n == None:
+            d=self.d
+            n=self.n
+        if layer == 1:
+            dec_list = []
+            for i in message:
+                dec_list.append(pow(i, d) % n)
+            
+            #print("The decrypted message in number format is:", dec_list)
+            message_letters = []
+            for j in dec_list:
+                for key, value in let_num_dict.items():
+                    if j == value:
+                        message_letters.append(key)
+            decrypted_message = "".join([str(i) for i in message_letters])
+            #print("The decrypted message is: ", decrypted_message)
+            return decrypted_message
+        else:
+            dec_list = []
+            for i in message:
+                dec_list.append(pow(i, d) % n)
+            return dec_list
