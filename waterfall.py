@@ -19,29 +19,38 @@ if __name__ == "__main__":
     message=plain_text
     print('Plain Text: ', message)
     padded_message= pad(message)
-    print('Padded Message: ', padded_message)
+    print('Padded Message: \n', padded_message)
+    print('\n')    
     reverso = reverse(padded_message)
-    print('The Reversed string is: ', reverso)
+    print('The Reversed string is: \n ', reverso)
 
     a= algo_dict['caesar'].encrypt(reverso, key=4)
-    print("First Caesar cipher encryption layer", a)
+    print("First Caesar cipher encryption layer: \n", a)
+    print('\n')
+
     sec_layers['layer1'] = {'algo': 'caesar', 'key': 4}
 
     b = algo_dict['rsa']().encrypt(a, layer=2, e=77, n=143)
-    print("Second RSA encryption layer", b)
+    print("Second RSA encryption layer: \n ", b)
+    print('\n')
+
     sec_layers['layer2'] = {'algo': 'rsa', 'keys': {'e':77, 'n':143, 'd':53}}
 
     c=algo_dict['rsa']().decrypt(message=b, layer=2, d=53,n=143)
-    print('First RSA decryption layer', c)
+    print('First RSA decryption layer: \n', c)
+    print('\n')
 
     d=algo_dict['caesar'].decrypt(message=c, layer=1, key=4)
-    print('Second Caesar cipher decryption layer', d)
+    print('Second Caesar cipher decryption layer: \n', d)
+    print('\n')
 
     e=reverse(reverso)
-    print('The reverse string is: ', e)
+    print('The reverse string is: \n', e)
+    print('\n')
 
     f = depad(e)
-    print('The depadded message is: ', f)
+    print('The depadded message is: \n ', f)
+    print('\n')
 
     with open('enc_layers.txt', 'w') as convert_file:
         convert_file.write(json.dumps(sec_layers))

@@ -29,9 +29,11 @@ class Caesar:
             x_num = []
             for i in x:
                 x_num.append(let_num_dict[i])
-            
+            print('\n The character to number conversion is: \n', x_num)
+            print('\n')
             enc_list = [x+key for x in x_num]
             #print(f'The encrypted message is: {enc_list}')
+
             return enc_list
         else:
             enc_list = [x+key for x in message]
