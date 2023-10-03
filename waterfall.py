@@ -17,9 +17,9 @@ sec_layers = {}
 if __name__ == "__main__":
 
     message=plain_text
-    print('Plain Text: ', message)
+    print('\n Plain Text: \n', message)
     padded_message= pad(message)
-    print('Padded Message: \n', padded_message)
+    print('\n Padded Message: \n', padded_message)
     print('\n')    
     reverso = reverse(padded_message)
     print('The Reversed string is: \n ', reverso)
@@ -34,6 +34,9 @@ if __name__ == "__main__":
     print("Second RSA encryption layer: \n ", b)
     print('\n')
 
+    with open('ciphertext.txt', 'w') as filehandle:
+        json.dump(b, filehandle)
+
     sec_layers['layer2'] = {'algo': 'rsa', 'keys': {'e':77, 'n':143, 'd':53}}
 
     c=algo_dict['rsa']().decrypt(message=b, layer=2, d=53,n=143)
@@ -44,7 +47,7 @@ if __name__ == "__main__":
     print('Second Caesar cipher decryption layer: \n', d)
     print('\n')
 
-    e=reverse(reverso)
+    e=reverse(d)
     print('The reverse string is: \n', e)
     print('\n')
 
