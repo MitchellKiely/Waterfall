@@ -20,9 +20,8 @@ if __name__ == "__main__":
     print('\n Plain Text: \n', message)
     padded_message= pad(message)
     print('\n Padded Message: \n', padded_message)
-    print('\n')    
     reverso = reverse(padded_message)
-    print('The Reversed string is: \n ', reverso)
+    print('\n The Reversed string is: \n ', reverso)
 
     a= algo_dict['caesar'].encrypt(reverso, key=4)
     print("First Caesar cipher encryption layer: \n", a)
@@ -52,8 +51,7 @@ if __name__ == "__main__":
     print('\n')
 
     f = depad(e)
-    print('The depadded message is: \n ', f)
-    print('\n')
+    print('The depadded message is:\n', f)
 
     with open('enc_layers.txt', 'w') as convert_file:
         convert_file.write(json.dumps(sec_layers))
