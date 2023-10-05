@@ -1,5 +1,7 @@
 from algorithms.common.lnd import let_num_dict
 import random as random
+from termcolor import colored
+
 
 class Caesar:
     def __init__(self):
@@ -29,7 +31,7 @@ class Caesar:
             x_num = []
             for i in x:
                 x_num.append(let_num_dict[i])
-            print('\n The character to number conversion is: \n', x_num)
+            print(colored('\n The character to number conversion is:', 'green'), '\n', x_num)
             print('\n')
             enc_list = [x+key for x in x_num]
             #print(f'The encrypted message is: {enc_list}')
